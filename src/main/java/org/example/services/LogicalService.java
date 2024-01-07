@@ -2,16 +2,17 @@ package org.example.services;
 
 import javassist.NotFoundException;
 import org.example.model.Client;
+import org.hibernate.Session;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Service
-public class LogicalService {
+public class LogicalService extends HibernateStatistic implements DisposableBean {
 
     @PersistenceContext
     private EntityManager em;
@@ -22,6 +23,8 @@ public class LogicalService {
     @Autowired
     private ClientService clientService;
 
+
+
     @Transactional
     public void doFirstOperation() {
         Client client = clientService.findById(1L);
@@ -30,9 +33,28 @@ public class LogicalService {
         try {
             logicalService2.doSecondOperation(client.getName());
         } catch (NotFoundException e) {
-            throw new RuntimeException(e);
+            //do nothing
+        } finally {
+            em.flush();
+            sOutStatistics(((Session)em.getDelegate()).getSessionFactory().getStatistics(), "После выполнения 2 опреации" );
         }
     }
+
+    @Override
+    public void destroy() throws Exception {
+        sOutStatistics(((Session)em.getDelegate()).getSessionFactory().getStatistics(), "В самом конце при уничтожении сервиса");
+    }
+
+
+//    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = {NotFoundException.class})
+//    public void doSecondOperation(String clientName) throws NotFoundException {
+//        Adress adress = new Adress();
+//        adress.setAdress(clientName);
+//        em.persist(adress);
+//        System.out.println("LogicalService2 - " + ((Session)em.getDelegate()).getSessionFactory().getStatistics().getTransactionCount());
+//        throw new NotFoundException("");
+//
+//    }
 
 
 }

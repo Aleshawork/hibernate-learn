@@ -61,11 +61,13 @@ public class Configuration {
     private Properties jpaProperties() {
         Properties properties = new Properties();
         properties.setProperty(AvailableSettings.DIALECT, "org.hibernate.dialect.PostgreSQL95Dialect");
-        properties.setProperty(AvailableSettings.SHOW_SQL, "true");
+        properties.setProperty(AvailableSettings.SHOW_SQL, "false");
         properties.setProperty(AvailableSettings.FORMAT_SQL, "true");
         properties.setProperty(AvailableSettings.HBM2DDL_AUTO, "update");
+        properties.setProperty(AvailableSettings.GENERATE_STATISTICS, "false");
         return properties;
     }
+
 
 
 

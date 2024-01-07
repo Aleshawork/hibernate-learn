@@ -3,8 +3,10 @@ import javassist.NotFoundException;
 import org.example.model.Client;
 import org.example.services.ClientService;
 import org.example.services.DbEntityInfoService;
+import org.example.services.HibernateStatistic;
 import org.example.services.LogicalService;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -25,8 +27,6 @@ public class App {
 
 
         logicalService.doFirstOperation();
-
-        //logicalService.doSecondOperation(client);
-
+        ((ConfigurableApplicationContext)appContext).close();
     }
 }
