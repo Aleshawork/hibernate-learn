@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass = true)
 @org.springframework.context.annotation.Configuration
 @PropertySource("classpath:application.properties")
 public class Configuration {
@@ -63,6 +63,7 @@ public class Configuration {
         properties.setProperty(AvailableSettings.SHOW_SQL, "true");
         properties.setProperty(AvailableSettings.FORMAT_SQL, "true");
         properties.setProperty(AvailableSettings.HBM2DDL_AUTO, "update");
+        properties.setProperty(AvailableSettings.GENERATE_STATISTICS, "true");
         return properties;
     }
 
