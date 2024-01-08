@@ -5,7 +5,6 @@ import org.hibernate.cfg.AvailableSettings;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -15,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass = true)
 @org.springframework.context.annotation.Configuration
 @PropertySource("classpath:application.properties")
 public class Configuration {
@@ -64,7 +63,7 @@ public class Configuration {
         properties.setProperty(AvailableSettings.SHOW_SQL, "false");
         properties.setProperty(AvailableSettings.FORMAT_SQL, "true");
         properties.setProperty(AvailableSettings.HBM2DDL_AUTO, "update");
-        properties.setProperty(AvailableSettings.GENERATE_STATISTICS, "false");
+        properties.setProperty(AvailableSettings.GENERATE_STATISTICS, "true");
         return properties;
     }
 

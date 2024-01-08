@@ -46,15 +46,5 @@ public class LogicalService extends HibernateStatistic implements DisposableBean
     }
 
 
-//    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = {NotFoundException.class})
-//    public void doSecondOperation(String clientName) throws NotFoundException {
-//        Adress adress = new Adress();
-//        adress.setAdress(clientName);
-//        em.persist(adress);
-//        System.out.println("LogicalService2 - " + ((Session)em.getDelegate()).getSessionFactory().getStatistics().getTransactionCount());
-//        throw new NotFoundException("");
-//
-//    }
-
 
 }

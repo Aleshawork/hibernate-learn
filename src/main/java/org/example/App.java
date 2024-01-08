@@ -22,10 +22,7 @@ public class App {
 
     public static void main( String[] args ) throws NotFoundException {
         ApplicationContext appContext = new AnnotationConfigApplicationContext(App.class);
-        ClientService clientService = appContext.getBean(ClientService.class);
         LogicalService logicalService = appContext.getBean(LogicalService.class);
-
-
         logicalService.doFirstOperation();
         ((ConfigurableApplicationContext)appContext).close();
     }
