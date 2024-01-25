@@ -42,11 +42,11 @@ services:
           cpus: '1'
           memory: 4G
     command:
-      - --url=jdbc:postgresql://localhost:5432/hibernate
+      - --url=jdbc:postgresql://postgres:5432/hibernate?currentSchema=public
       - --username=postgres
       - --password=password
       - --logLevel=SQL
-      - --changeLogFile=/liquibase/changelog-local.xml
+      - --changeLogFile=/changelog/liquibase/changelog-local.xml
       - update
 
 networks:
